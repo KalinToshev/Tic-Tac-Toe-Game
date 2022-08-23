@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TicTacToeGame:project xmlns:TicTacToeGame="http://maven.apache.org/POM/4.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <TicTacToeGame:modelVersion>4.0.0</TicTacToeGame:modelVersion>
+
+    <TicTacToeGame:groupId>org.example</TicTacToeGame:groupId>
+    <TicTacToeGame:artifactId>Tic Tac Toe Game</TicTacToeGame:artifactId>
+    <TicTacToeGame:version>1.0-SNAPSHOT</TicTacToeGame:version>
+
+    <TicTacToeGame:properties>
+        <TicTacToeGame:maven.compiler.source>17</TicTacToeGame:maven.compiler.source>
+        <TicTacToeGame:maven.compiler.target>17</TicTacToeGame:maven.compiler.target>
+    </TicTacToeGame:properties>
+
+</TicTacToeGame:project>
