@@ -1,58 +1,63 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    //Player -> X
-    //Computer -> O
     public static void main(String[] args) {
-        //Using 2D Array of chars to print the board
         char[][] board = {{' ', ' ', ' '},
                           {' ', ' ', ' '},
                           {' ', ' ', ' '}};
 
-        //Taking user input -> He is going to choose numbers between 1 and 9
-        //POSITIONS EXAMPLE:
-        //1|2|3
-        //-+-+-
-        //4|5|6
-        //-+-+-
-        //7|8|9
+        printBoard(board);
 
-        //Taking the number from the user
+        playerMove(board);
+
+        Random random = new Random();
+
+        int computerMove;
+        do {
+            computerMove = random.nextInt(9) + 1;
+        } while (!isValidMove(board, computerMove));
+        placeMove(board, Integer.toString(computerMove), 'O');
+
+        printBoard(board);
+    }
+
+    private static boolean isValidMove(char[][] board, int position) {
+        return switch (position) {
+            case 1 -> board[0][0] == ' ';
+            case 2 -> board[0][1] == ' ';
+            case 3 -> board[0][2] == ' ';
+            case 4 -> board[1][0] == ' ';
+            case 5 -> board[1][1] == ' ';
+            case 6 -> board[1][2] == ' ';
+            case 7 -> board[2][0] == ' ';
+            case 8 -> board[2][1] == ' ';
+            case 9 -> board[2][2] == ' ';
+            default -> false;
+        };
+    }
+
+    private static void playerMove(char[][] board) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Where would you like to play? (1...9)");
         String userInput = scanner.nextLine();
 
-        //Placing the X on the userInput number
-        switch (userInput) {
-            case "1":
-                board[0][0] = 'X';
-                break;
-            case "2":
-                board[0][1] = 'X';
-                break;
-            case "3":
-                board[0][2] = 'X';
-                break;
-            case "4":
-                board[1][0] = 'X';
-                break;
-            case "5":
-                board[1][1] = 'X';
-                break;
-            case "6":
-                board[1][2] = 'X';
-                break;
-            case "7":
-                board[2][0] = 'X';
-                break;
-            case "8":
-                board[2][1] = 'X';
-                break;
-            case "9":
-                board[2][2] = 'X';
-                break;
-            default:
-                System.out.println("Invalid position!");
+        placeMove(board, userInput, 'X');
+        scanner.close();
+    }
+
+    private static void placeMove(char[][] board, String position, char symbol) {
+        switch (position) {
+            case "1" -> board[0][0] = symbol;
+            case "2" -> board[0][1] = symbol;
+            case "3" -> board[0][2] = symbol;
+            case "4" -> board[1][0] = symbol;
+            case "5" -> board[1][1] = symbol;
+            case "6" -> board[1][2] = symbol;
+            case "7" -> board[2][0] = symbol;
+            case "8" -> board[2][1] = symbol;
+            case "9" -> board[2][2] = symbol;
+            default -> System.out.println("Invalid position!");
         }
     }
 
