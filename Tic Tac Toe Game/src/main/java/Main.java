@@ -3,23 +3,32 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         char[][] board = {{' ', ' ', ' '},
                           {' ', ' ', ' '},
                           {' ', ' ', ' '}};
 
         printBoard(board);
 
-        playerMove(board);
+        while(true) {
+            playerMove(board, scanner);
+            printBoard(board);
+            computerMove(board);
+            printBoard(board);
+        }
 
+        //printBoard(board);
+    }
+
+    private static void computerMove(char[][] board) {
         Random random = new Random();
-
         int computerMove;
         do {
             computerMove = random.nextInt(9) + 1;
         } while (!isValidMove(board, computerMove));
+        System.out.println("Computer chose: " + computerMove);
         placeMove(board, Integer.toString(computerMove), 'O');
-
-        printBoard(board);
     }
 
     private static boolean isValidMove(char[][] board, int position) {
@@ -37,13 +46,19 @@ public class Main {
         };
     }
 
-    private static void playerMove(char[][] board) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Where would you like to play? (1...9)");
-        String userInput = scanner.nextLine();
+    private static void playerMove(char[][] board, Scanner scanner) {
+        String userInput;
+        while(true) {
+            System.out.println("Where would you like to play? (1...9)");
+            userInput = scanner.nextLine();
+            if (isValidMove(board, Integer.parseInt(userInput))) {
+                break;
+            } else {
+                System.out.println(userInput + " is not a valid move!");
+            }
+        }
 
         placeMove(board, userInput, 'X');
-        scanner.close();
     }
 
     private static void placeMove(char[][] board, String position, char symbol) {
