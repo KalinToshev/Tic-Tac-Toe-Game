@@ -13,12 +13,56 @@ public class Main {
 
         while(true) {
             playerMove(board, scanner);
+            if (isGameFinished(board)) {
+                break;
+            }
             printBoard(board);
             computerMove(board);
+            if (isGameFinished(board)) {
+                break;
+            }
             printBoard(board);
         }
 
-        //printBoard(board);
+        scanner.close();
+    }
+
+    private static boolean isGameFinished(char[][] board) {
+        if (hasContestantWon(board, 'X')) {
+            printBoard(board);
+            System.out.println("Player wins!");
+            return true;
+        }
+
+        if (hasContestantWon(board, 'O')) {
+            printBoard(board);
+            System.out.println("Computer wins!");
+            return true;
+        }
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        printBoard(board);
+        System.out.println("The game ended in a tie!");
+        return true;
+    }
+
+    private static boolean hasContestantWon(char[][] board, char symbol) {
+        return (board[0][0] == symbol && board[0][1] == symbol && board[0][2] == symbol) ||
+                (board[1][0] == symbol && board[1][1] == symbol && board[1][2] == symbol) ||
+                (board[2][0] == symbol && board[2][1] == symbol && board[2][2] == symbol) ||
+
+                (board[0][0] == symbol && board[1][0] == symbol && board[2][0] == symbol) ||
+                (board[0][1] == symbol && board[1][1] == symbol && board[2][1] == symbol) ||
+                (board[0][2] == symbol && board[1][2] == symbol && board[2][2] == symbol) ||
+
+                (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) ||
+                (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol);
     }
 
     private static void computerMove(char[][] board) {
@@ -26,22 +70,22 @@ public class Main {
         int computerMove;
         do {
             computerMove = random.nextInt(9) + 1;
-        } while (!isValidMove(board, computerMove));
+        } while (!isValidMove(board, Integer.toString(computerMove)));
         System.out.println("Computer chose: " + computerMove);
         placeMove(board, Integer.toString(computerMove), 'O');
     }
 
-    private static boolean isValidMove(char[][] board, int position) {
+    private static boolean isValidMove(char[][] board, String position) {
         return switch (position) {
-            case 1 -> board[0][0] == ' ';
-            case 2 -> board[0][1] == ' ';
-            case 3 -> board[0][2] == ' ';
-            case 4 -> board[1][0] == ' ';
-            case 5 -> board[1][1] == ' ';
-            case 6 -> board[1][2] == ' ';
-            case 7 -> board[2][0] == ' ';
-            case 8 -> board[2][1] == ' ';
-            case 9 -> board[2][2] == ' ';
+            case "1" -> board[0][0] == ' ';
+            case "2" -> board[0][1] == ' ';
+            case "3" -> board[0][2] == ' ';
+            case "4" -> board[1][0] == ' ';
+            case "5" -> board[1][1] == ' ';
+            case "6" -> board[1][2] == ' ';
+            case "7" -> board[2][0] == ' ';
+            case "8" -> board[2][1] == ' ';
+            case "9" -> board[2][2] == ' ';
             default -> false;
         };
     }
@@ -51,7 +95,7 @@ public class Main {
         while(true) {
             System.out.println("Where would you like to play? (1...9)");
             userInput = scanner.nextLine();
-            if (isValidMove(board, Integer.parseInt(userInput))) {
+            if (isValidMove(board, userInput)) {
                 break;
             } else {
                 System.out.println(userInput + " is not a valid move!");
